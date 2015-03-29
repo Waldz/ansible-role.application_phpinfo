@@ -1,0 +1,16 @@
+---
+- name: Create application public directory
+  file: >
+    state=directory
+    path={{ phpinfo_path_public }}
+    owner=www-data
+
+
+- name: Deploy application
+  template:
+    src="{{ item.from }}"
+    dest="{{ item.to }}"
+    owner=www-data
+  with_items:
+    - from: public_html/index.php
+      to: "{{ phpinfo_path_public }}/index.php"
